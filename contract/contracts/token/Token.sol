@@ -3,11 +3,6 @@ pragma solidity ^0.4.24;
 import 'openzeppelin-solidity/contracts/token/ERC20/StandardToken.sol';
 import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
-/**
-@title Ocean Protocol ERC20 Token Contract
-@author Team: Fang Gong
-*/
-
 contract Token is StandardToken {
 
     using SafeMath for uint256;
