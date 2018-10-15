@@ -1,15 +1,6 @@
 [![banner](https://raw.githubusercontent.com/oceanprotocol/art/master/github/repo-banner%402x.png)](https://oceanprotocol.com)
 
-# bounty-contracts
-
-> Ocean Protocol Bounties Smart Contract - ERC20 token with Freeze, Airdrop and Bounty Functions
-> [oceanprotocol.com](https://oceanprotocol.com)
-
 [![js oceanprotocol](https://img.shields.io/badge/js-oceanprotocol-7b1173.svg)](https://github.com/oceanprotocol/eslint-config-oceanprotocol)
-
----
-
-**🐲🦑 THERE BE DRAGONS AND SQUIDS. This is in alpha state and you can expect running into problems. If you run into them, please open up [a new issue](https://github.com/oceanprotocol/bounty-contracts/issues). 🦑🐲**
 
 ---
 
@@ -18,8 +9,6 @@
   - [Specifications](#specifications)
   - [Development](#development)
      - [Contract testing](#contract-testing)
-     - [Contract deployment](#contract-deployment)
-  - [Freeze Account](#freeze-account)
   - [License](#license)
 
 ---
