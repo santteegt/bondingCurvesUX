@@ -1,0 +1,38 @@
+{
+  "name": "@oceanprotocol/bounty-contracts",
+  "version": "1.0.0",
+  "description": "Ocean Protocol Bounties Smart Contract - ERC20 token with Freeze, Airdrop and Bounty Functions",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "compile": "truffle compile",
+    "deploy:ropsten": "truffle migrate --reset --network ropsten",
+    "start": "serve -s src/",
+    "lint": "eslint './{migrations,test}/**/*.js'  && ./node_modules/solium/bin/solium.js -d ./contracts/",
+    "test": "npm run lint && truffle test"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "openzeppelin-solidity": "^1.12.0",
+    "truffle": "^4.1.14",
+    "truffle-hdwallet-provider": "0.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-oceanprotocol": "^1.2.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "serve": "^10.0.0",
+    "solium": "^1.1.8"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}
