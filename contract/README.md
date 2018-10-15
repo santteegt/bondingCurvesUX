@@ -28,10 +28,10 @@
 
 1. the account that deployes the contract is the `token contract owner`;
 1. `contract owner` has all the tokens at the begining;
-1. transfer funds between accounts;
-1. owner can freeze any account to prevent tranferring funds out from these accounts;
-1. owner can unfreeze accounts to enable transfer;
-1. owner can return a list of all accounts that received tokens;
+1. user can request tokens from bonding curve contract;
+1. user can buy drops (i.e., bonded tokens) using their ERC20 tokens;
+1. user can sell drops back into the bonding curve and get ERC20 tokens back;
+1. user can withdraw their ERC20 tokens back into their own wallets.
 
 ## Development
 
@@ -54,28 +54,7 @@ npm test
 
 The result is similar to following:
 
-<img src='img/testImage.jpg' width="600"/>
-
-### Contract deployment
-
-Deploy the contracts to the Ropsten test network after compiling them with:
-
-```bash
-npm run compile
-npm run deploy:ropsten
-```
-
-## Freeze Account
-
-You can freeze an account by using the included web app. Launch the web server with:
-
-```bash
-npm start
-```
-
-Simply switch the proper network (e.g., Rinkeby or Main) and login the owner account in MetaMask, and type in account address to be unfreezed and click button.
-
-<img src='img/web.jpg' width="600"/>
+<img src='img/test.jpg' width="600"/>
 
 ## License
 
