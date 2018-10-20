@@ -40,7 +40,9 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!<rootDir>/node_modules/",
-      "!<rootDir>/path/to/dir/"
+      "!<rootDir>/src/App/**/*.js",
+      "!<rootDir>/src/index.js",
+      "!<rootDir>/src/serviceWorker.js"
     ]
   }
 }
