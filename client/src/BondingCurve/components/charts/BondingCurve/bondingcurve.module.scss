@@ -1,0 +1,87 @@
+@import "../../../../assets/stylesheets/variables";
+
+.ocean_chart{
+    position:relative;
+    overflow:hidden;
+
+    .ocean_line{
+        stroke:$brand-pink !important;
+    }
+    
+    .ocean_crosshair_dot{
+        :global{
+            circle{
+                fill: $brand-purple !important;
+                stroke:$brand-white !important;
+            }
+        }
+    }
+    
+    .ocean_crosshair{
+    
+        :global{
+            .rv-crosshair__line{
+                border-left: 2px dotted $brand-grey-lighter;
+                background:transparent;
+                opacity: .7;
+    
+            }
+            .rv-crosshair__inner{
+                display:none;
+            }
+        }
+    }
+}
+
+.timeline_footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    &.no__detail{
+        justify-content:flex-end !important;
+    }
+
+    .data_point_detail{
+        text-align: left;
+        padding: 0 .8rem .8rem .8rem;
+    
+        .data_point_detail__title{
+            font-family: $font-family-title;
+            font-size: 1rem;
+            color:$brand-black;
+        }
+        .data_point_detail__date{
+            font-family: $font-family-title;
+            font-size: .6rem;
+            color:$brand-grey-light;
+        }
+    }
+
+    .timeline_filter{
+        color: $brand-grey-light;
+        list-style-type: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        font-family: $font-family-button;
+        padding: 0 .8rem .8rem;
+        font-size: .8rem;
+        
+        :global{
+            li{
+                padding: .3rem;
+                opacity:.6;
+                cursor: pointer;
+    
+                &:hover{
+                    opacity:.8;
+                }
+    
+                &.active{
+                    color:$brand-pink;
+                    opacity:1;
+                }
+            }
+        }
+    }
+}

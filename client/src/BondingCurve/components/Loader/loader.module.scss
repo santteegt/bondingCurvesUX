@@ -1,0 +1,35 @@
+@import "../../../assets/stylesheets/variables";
+
+.loader{
+    position: relative;
+}
+
+.drop{
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    margin: auto;
+    top:0px; bottom:0; right:0; left:0;
+    background: $brand-grey-lighter;
+    border-radius: 50% 1px 50% 50%;
+    transform: rotate(-45deg);  
+    animation: drip 1s 0.5s linear infinite;
+}
+
+@-webkit-keyframes drip {
+    0% {
+       width: 0px;
+       height: 0px;
+       top: -200px;
+     }
+     50% {
+       width: 20px;
+       height: 20px;
+       top: -50px;
+     }
+     100% { 
+       width: 20px;
+       height: 20px; 
+       top: 10px;
+     }
+   }

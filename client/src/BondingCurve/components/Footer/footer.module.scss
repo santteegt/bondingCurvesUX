@@ -1,0 +1,23 @@
+@import "../../../assets/stylesheets/variables";
+
+.bondingcurve_module__footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 0 .8rem .8rem .8rem;
+
+    .data_point_detail{
+        text-align: left;
+    
+        .data_point_detail__title{
+            font-family: $font-family-title;
+            font-size: 1rem;
+            color:$brand-black;
+        }
+        .data_point_detail__date{
+            font-family: $font-family-title;
+            font-size: .6rem;
+            color:$brand-grey-light;
+        }
+    }
+}
