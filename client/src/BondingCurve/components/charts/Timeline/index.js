@@ -39,8 +39,8 @@ export default class Timeline extends Component {
             if (nextProps.contractAddress !== this.props.contractAddress) {
                 this.setState({
                     data: []
-                }, async () => {
-                    await this.getData(nextProps)
+                }, () => {
+                    this.getData(nextProps)
                 })
             };
         } catch (error) {
@@ -49,9 +49,7 @@ export default class Timeline extends Component {
     }
 
     getData = async (props) => {
-        const { bondingCurveContract, web3 } = props;
-
-        let i = 0;
+        const { bondingCurveContract } = props;
 
         try {
 
@@ -63,34 +61,16 @@ export default class Timeline extends Component {
             })
                 .on('data', async (event) => {
 
-                    if (["TokenBuyDrops", "TokenSellDrops"].indexOf(event.event) !== -1) {
-                        const price = event.returnValues._price / scale;
-                        const block = await web3.eth.getBlock(event.blockNumber)
-
-                        // TODO remove subtract for release, only there to show a smoother graph for testing
-                        const date = moment(block.timestamp * 1000).subtract(50 - i++, "day").valueOf();
-
-                        let newMaxValue = this.state.maxValue;
-
-                        if (price > this.state.maxValue) {
-                            newMaxValue = price;
+                    try {
+                        if (["TokenBuyDrops", "TokenSellDrops"].indexOf(event.event) !== -1) {
+                            await this.handleEvent(event, scale)
                         }
-
-                        this.setState((prevState) => ({
-                            data: [
-                                ...prevState.data,
-                                {
-                                    y: +price,
-                                    x: date
-                                }
-                            ],
-                            maxValue: newMaxValue
-                        }))
+                    } catch (err) {
+                        throw err;
                     }
 
                 })
                 .on('changed', (event) => {
-                    // remove event from local database
                     console.log("changed", event)
                 })
                 .on('error', console.error);
@@ -98,6 +78,34 @@ export default class Timeline extends Component {
         } catch (error) {
             this.setState({ error })
         }
+    }
+
+    handleEvent = async (event, scale) => {
+        const { web3 } = this.props;
+
+        const price = event.returnValues._price / scale;
+        const block = await web3.eth.getBlock(event.blockNumber)
+
+        // TODO remove subtract for release, only there to show a smoother graph for testing
+        const date = moment(block.timestamp * 1000).valueOf();
+
+        let newMaxValue = this.state.maxValue;
+
+        if (price > this.state.maxValue) {
+            newMaxValue = price;
+        }
+
+        this.setState((prevState) => ({
+            data: [
+                ...prevState.data,
+                {
+                    y: +price,
+                    x: date
+                }
+            ],
+            maxValue: newMaxValue
+        }))
+
     }
 
     setFilter = (filter) => {

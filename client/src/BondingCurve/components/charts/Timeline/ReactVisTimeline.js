@@ -90,16 +90,6 @@ export default class ReactVisTimeline extends React.Component {
                             />
                         )
                     }
-                    {
-                        hoverValues && (
-                            <LineSeries
-                                strokeWidth={3}
-                                className={styles.ocean_line}
-                                style={{ strokeLinejoin: "round" }}
-                                getX={(d) => hoverValues.x}
-                            />
-                        )
-                    }
 
                     {
                         hoverValues && (
