@@ -44,6 +44,12 @@ export default class ReactVisBondingCurve extends React.Component {
         }
     };
 
+    getSupply = (d) => d.supply;
+    getSell = (d) => d.sell;
+    getValue = (d) => d.value;
+
+    hasValue = (d) => !!d.sell;
+    tickFormat = (d) => numeral(d).format('0 a');
 
     render() {
         const { hoverValues } = this.state;
@@ -55,8 +61,8 @@ export default class ReactVisBondingCurve extends React.Component {
                     margin={{ left: 0, right: 0, top: 10, bottom: 40 }}
                     animation
                     onMouseLeave={this._onMouseLeave}
-                    getX={(d) => d.supply}
-                    getY={(d) => d.value}
+                    getX={this.getSupply}
+                    getY={this.getValue}
                     height={height}
                 >
                     <GradientDefs>
@@ -68,8 +74,8 @@ export default class ReactVisBondingCurve extends React.Component {
 
                     <AreaSeries
                         color={'url(#oceanGradient)'}
-                        getY={(d) => d.sell}
-                        getNull={(d) => !!d.sell}
+                        getY={this.getSell}
+                        getNull={this.hasValue}
                         data={data}
                     />
                     <LineSeries
@@ -80,17 +86,26 @@ export default class ReactVisBondingCurve extends React.Component {
                         data={data}
                     />
 
-                    <YAxis tickTotal={1} />
+                    <YAxis
+                        tickTotal={1}
+                    />
 
                     {
                         hoverValues && (
-                            <XAxis tickTotal={3} tickFormat={(d) => numeral(d).format('0 a')} />
+                            <XAxis
+                                tickTotal={3}
+                                tickFormat={this.tickFormat}
+                            />
                         )
                     }
 
                     {
                         hoverValues && (
-                            <MarkSeries className={styles.ocean_crosshair_dot} size={4} data={hoverValues} />
+                            <MarkSeries
+                                className={styles.ocean_crosshair_dot}
+                                size={4}
+                                data={hoverValues}
+                            />
                         )
                     }
 

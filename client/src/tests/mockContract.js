@@ -29,21 +29,47 @@ export const mockEvent = {
 
 export const mockEvents = new EventEmitter();
 
-export const mockWeb3 = {
-    eth: {
-        getBlock: jest.fn().mockReturnValue({
-            timestamp: 1540072
-        })
-    }
+const mockCall = {
+    call: jest.fn().mockReturnValue(Promise.resolve(0))
 }
 
 export const bondingCurveContract = {
     methods: {
-        scale: jest.fn().mockReturnValue({
-            call: jest.fn()
-        })
+        scale: jest.fn().mockReturnValue(mockCall),
+        tokenBalance: jest.fn().mockReturnValue(mockCall),
+        dropsBalance: jest.fn().mockReturnValue(mockCall),
+        dropsSupply: jest.fn().mockReturnValue(mockCall),
+        reserveRatio: jest.fn().mockReturnValue(mockCall),
+        poolBalance: jest.fn().mockReturnValue(mockCall),
+        totalSupply: jest.fn().mockReturnValue(mockCall),
+        ndrops: jest.fn().mockReturnValue(mockCall),
+        nOcean: jest.fn().mockReturnValue(mockCall),
+        ghostSupply: jest.fn().mockReturnValue(mockCall),
     },
     events: {
         allEvents: jest.fn().mockReturnValue(mockEvents)
+    }
+}
+
+class MockContract {
+    constructor(abi, address) {
+        return bondingCurveContract
+    }
+}
+
+export const mockWeb3 = {
+    eth: {
+        getBlock: jest.fn().mockReturnValue({
+            timestamp: 1540072
+        }),
+        getAccounts: jest.fn().mockReturnValue([]),
+        getCode: jest.fn(),
+        Contract: MockContract,
+        net: {
+            isListening: jest.fn().mockReturnValue(Promise.resolve())
+        }
+    },
+    utils: {
+        isAddress: jest.fn()
     }
 }

@@ -1,13 +1,13 @@
+import cn from "classnames";
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import styles from './BondingCurve.module.scss';
-import Timeline from './components/charts/Timeline';
-import BondingCurveChart from './components/charts/BondingCurve';
-import cn from "classnames";
 import ErrorBoundary from 'react-error-boundary';
-import Web3 from "web3";
-import Loader from './components/Loader';
+import { getWeb3 } from '../utils/getWeb3';
+import styles from './BondingCurve.module.scss';
+import BondingCurveChart from './components/charts/BondingCurve';
+import Timeline from './components/charts/Timeline';
 import ErrorComponent from './components/Error';
+import Loader from './components/Loader';
 
 export default class BondingCurve extends Component {
 
@@ -35,7 +35,7 @@ export default class BondingCurve extends Component {
         try {
             await this.getContract(this.props);
         } catch (error) {
-            throw error;
+            this.setState({ error, loading: false })
         }
     };
 
@@ -45,7 +45,7 @@ export default class BondingCurve extends Component {
                 await this.getContract(nextProps);
             }
         } catch (error) {
-            throw error;
+            this.setState({ error, loading: false })
         }
     };
 
@@ -61,21 +61,21 @@ export default class BondingCurve extends Component {
         })
 
         try {
+
             // Get network provider and web3 instance.
-            const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
+            const web3 = getWeb3();
+
+            // Check if connected
+            await web3.eth.net.isListening();
 
             // Use web3 to get the user's accounts.
             const accounts = await web3.eth.getAccounts();
 
             if (!web3.utils.isAddress(contractAddress)) {
-
                 this.setState({
                     loading: false,
                     error: "Invalid address"
                 })
-
-                console.error("Invalid address");
-
             } else {
                 const contract = new web3.eth.Contract(contractArtifact.abi, contractAddress);
 
@@ -86,8 +86,6 @@ export default class BondingCurve extends Component {
                         loading: false,
                         error: "Invalid contract"
                     })
-
-                    console.error("Invalid contract");
                 } else {
                     this.setState({ web3, accounts, contract, loading: false });
                 }
@@ -101,6 +99,25 @@ export default class BondingCurve extends Component {
         this.setState({
             activeTab: tabName
         });
+    }
+
+    renderErrorComponent = (error) => {
+        const { height } = this.props;
+
+        let message = error;
+
+        if (error.error || error.message) {
+            console.error(error.message || error.error.message);
+            message = "An error has occurred";
+        } else {
+            console.error(message)
+        }
+
+        return (
+            <ErrorComponent
+                message={message}
+                height={height} />
+        )
     }
 
     render() {
@@ -127,19 +144,10 @@ export default class BondingCurve extends Component {
                 </ul>
 
                 <ErrorBoundary
-                    FallbackComponent={(e) => (
-                        <ErrorComponent
-                            message={e.error.message}
-                            height={height} />
-                    )}>
-
+                    FallbackComponent={this.renderErrorComponent}>
 
                     {
-                        !web3 || error ? (
-                            <ErrorComponent
-                                message={error}
-                                height={height} />
-                        ) : null
+                        error ? this.renderErrorComponent(error) : null
                     }
 
                     {

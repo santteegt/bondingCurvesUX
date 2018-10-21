@@ -13,6 +13,7 @@ export default class Timeline extends Component {
         bondingCurveContract: PropTypes.object.isRequired,
         web3: PropTypes.object.isRequired,
         height: PropTypes.number.isRequired,
+        contractAddress: PropTypes.string.isRequired,
     }
 
     state = {
@@ -53,7 +54,7 @@ export default class Timeline extends Component {
 
         try {
 
-            const scale = await this.props.bondingCurveContract.methods.scale().call()
+            const scale = await bondingCurveContract.methods.scale().call()
 
             bondingCurveContract.events.allEvents({
                 fromBlock: 0,
@@ -81,31 +82,35 @@ export default class Timeline extends Component {
     }
 
     handleEvent = async (event, scale) => {
-        const { web3 } = this.props;
+        try {
 
-        const price = event.returnValues._price / scale;
-        const block = await web3.eth.getBlock(event.blockNumber)
+            const { web3 } = this.props;
 
-        // TODO remove subtract for release, only there to show a smoother graph for testing
-        const date = moment(block.timestamp * 1000).valueOf();
+            const price = event.returnValues._price / scale;
+            const block = await web3.eth.getBlock(event.blockNumber)
 
-        let newMaxValue = this.state.maxValue;
+            const date = moment(block.timestamp * 1000).valueOf();
 
-        if (price > this.state.maxValue) {
-            newMaxValue = price;
+            let newMaxValue = this.state.maxValue;
+
+            if (price > this.state.maxValue) {
+                newMaxValue = price;
+            }
+
+            this.setState((prevState) => ({
+                data: [
+                    ...prevState.data,
+                    {
+                        y: +price,
+                        x: date
+                    }
+                ],
+                maxValue: newMaxValue
+            }))
+
+        } catch (err) {
+            throw err;
         }
-
-        this.setState((prevState) => ({
-            data: [
-                ...prevState.data,
-                {
-                    y: +price,
-                    x: date
-                }
-            ],
-            maxValue: newMaxValue
-        }))
-
     }
 
     setFilter = (filter) => {

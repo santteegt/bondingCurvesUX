@@ -1,0 +1,632 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ReactVisBondingCurve
+    data={Array []}
+    height={200}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <FlexibleXYPlot
+        animation={true}
+        getX={[Function]}
+        getY={[Function]}
+        height={200}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 0,
+            "right": 0,
+            "top": 10,
+          }
+        }
+        onMouseLeave={[Function]}
+      >
+        <GradientDefs
+          className=""
+        >
+          <linearGradient
+            id="oceanGradient"
+            x1="0%"
+            x2="0%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stopColor="#ff4092"
+              stopOpacity={0.8}
+            />
+            <stop
+              offset="70%"
+              stopColor="white"
+              stopOpacity={0}
+            />
+          </linearGradient>
+        </GradientDefs>
+        <AreaSeries
+          className=""
+          color="url(#oceanGradient)"
+          data={Array []}
+          getNull={[Function]}
+          getY={[Function]}
+          stack={false}
+          style={Object {}}
+        />
+        <LineSeries
+          className="ocean_line"
+          curve={null}
+          data={Array []}
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          stack={false}
+          strokeStyle="solid"
+          strokeWidth={3}
+          style={
+            Object {
+              "strokeLinejoin": "round",
+            }
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickTotal={1}
+        />
+      </FlexibleXYPlot>,
+      "className": "ocean_chart",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "animation": true,
+        "children": Array [
+          <GradientDefs
+            className=""
+          >
+            <linearGradient
+              id="oceanGradient"
+              x1="0%"
+              x2="0%"
+              y1="0%"
+              y2="100%"
+            >
+              <stop
+                offset="0%"
+                stopColor="#ff4092"
+                stopOpacity={0.8}
+              />
+              <stop
+                offset="70%"
+                stopColor="white"
+                stopOpacity={0}
+              />
+            </linearGradient>
+          </GradientDefs>,
+          <AreaSeries
+            className=""
+            color="url(#oceanGradient)"
+            data={Array []}
+            getNull={[Function]}
+            getY={[Function]}
+            stack={false}
+            style={Object {}}
+          />,
+          <LineSeries
+            className="ocean_line"
+            curve={null}
+            data={Array []}
+            getNull={[Function]}
+            onNearestX={[Function]}
+            opacity={1}
+            stack={false}
+            strokeStyle="solid"
+            strokeWidth={3}
+            style={
+              Object {
+                "strokeLinejoin": "round",
+              }
+            }
+          />,
+          <YAxis
+            attr="y"
+            attrAxis="x"
+            orientation="left"
+            tickTotal={1}
+          />,
+          null,
+          null,
+          null,
+        ],
+        "getX": [Function],
+        "getY": [Function],
+        "height": 200,
+        "margin": Object {
+          "bottom": 40,
+          "left": 0,
+          "right": 0,
+          "top": 10,
+        },
+        "onMouseLeave": [Function],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <linearGradient
+              id="oceanGradient"
+              x1="0%"
+              x2="0%"
+              y1="0%"
+              y2="100%"
+            >
+              <stop
+                offset="0%"
+                stopColor="#ff4092"
+                stopOpacity={0.8}
+              />
+              <stop
+                offset="70%"
+                stopColor="white"
+                stopOpacity={0}
+              />
+            </linearGradient>,
+            "className": "",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <stop
+                  offset="0%"
+                  stopColor="#ff4092"
+                  stopOpacity={0.8}
+                />,
+                <stop
+                  offset="70%"
+                  stopColor="white"
+                  stopOpacity={0}
+                />,
+              ],
+              "id": "oceanGradient",
+              "x1": "0%",
+              "x2": "0%",
+              "y1": "0%",
+              "y2": "100%",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "offset": "0%",
+                  "stopColor": "#ff4092",
+                  "stopOpacity": 0.8,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "stop",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "offset": "70%",
+                  "stopColor": "white",
+                  "stopOpacity": 0,
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "stop",
+              },
+            ],
+            "type": "linearGradient",
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "className": "",
+            "color": "url(#oceanGradient)",
+            "data": Array [],
+            "getNull": [Function],
+            "getY": [Function],
+            "stack": false,
+            "style": Object {},
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "className": "ocean_line",
+            "curve": null,
+            "data": Array [],
+            "getNull": [Function],
+            "onNearestX": [Function],
+            "opacity": 1,
+            "stack": false,
+            "strokeStyle": "solid",
+            "strokeWidth": 3,
+            "style": Object {
+              "strokeLinejoin": "round",
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "attr": "y",
+            "attrAxis": "x",
+            "orientation": "left",
+            "tickTotal": 1,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        null,
+        null,
+        null,
+      ],
+      "type": [Function],
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <FlexibleXYPlot
+          animation={true}
+          getX={[Function]}
+          getY={[Function]}
+          height={200}
+          margin={
+            Object {
+              "bottom": 40,
+              "left": 0,
+              "right": 0,
+              "top": 10,
+            }
+          }
+          onMouseLeave={[Function]}
+        >
+          <GradientDefs
+            className=""
+          >
+            <linearGradient
+              id="oceanGradient"
+              x1="0%"
+              x2="0%"
+              y1="0%"
+              y2="100%"
+            >
+              <stop
+                offset="0%"
+                stopColor="#ff4092"
+                stopOpacity={0.8}
+              />
+              <stop
+                offset="70%"
+                stopColor="white"
+                stopOpacity={0}
+              />
+            </linearGradient>
+          </GradientDefs>
+          <AreaSeries
+            className=""
+            color="url(#oceanGradient)"
+            data={Array []}
+            getNull={[Function]}
+            getY={[Function]}
+            stack={false}
+            style={Object {}}
+          />
+          <LineSeries
+            className="ocean_line"
+            curve={null}
+            data={Array []}
+            getNull={[Function]}
+            onNearestX={[Function]}
+            opacity={1}
+            stack={false}
+            strokeStyle="solid"
+            strokeWidth={3}
+            style={
+              Object {
+                "strokeLinejoin": "round",
+              }
+            }
+          />
+          <YAxis
+            attr="y"
+            attrAxis="x"
+            orientation="left"
+            tickTotal={1}
+          />
+        </FlexibleXYPlot>,
+        "className": "ocean_chart",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "animation": true,
+          "children": Array [
+            <GradientDefs
+              className=""
+            >
+              <linearGradient
+                id="oceanGradient"
+                x1="0%"
+                x2="0%"
+                y1="0%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="#ff4092"
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="70%"
+                  stopColor="white"
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </GradientDefs>,
+            <AreaSeries
+              className=""
+              color="url(#oceanGradient)"
+              data={Array []}
+              getNull={[Function]}
+              getY={[Function]}
+              stack={false}
+              style={Object {}}
+            />,
+            <LineSeries
+              className="ocean_line"
+              curve={null}
+              data={Array []}
+              getNull={[Function]}
+              onNearestX={[Function]}
+              opacity={1}
+              stack={false}
+              strokeStyle="solid"
+              strokeWidth={3}
+              style={
+                Object {
+                  "strokeLinejoin": "round",
+                }
+              }
+            />,
+            <YAxis
+              attr="y"
+              attrAxis="x"
+              orientation="left"
+              tickTotal={1}
+            />,
+            null,
+            null,
+            null,
+          ],
+          "getX": [Function],
+          "getY": [Function],
+          "height": 200,
+          "margin": Object {
+            "bottom": 40,
+            "left": 0,
+            "right": 0,
+            "top": 10,
+          },
+          "onMouseLeave": [Function],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": <linearGradient
+                id="oceanGradient"
+                x1="0%"
+                x2="0%"
+                y1="0%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="#ff4092"
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="70%"
+                  stopColor="white"
+                  stopOpacity={0}
+                />
+              </linearGradient>,
+              "className": "",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <stop
+                    offset="0%"
+                    stopColor="#ff4092"
+                    stopOpacity={0.8}
+                  />,
+                  <stop
+                    offset="70%"
+                    stopColor="white"
+                    stopOpacity={0}
+                  />,
+                ],
+                "id": "oceanGradient",
+                "x1": "0%",
+                "x2": "0%",
+                "y1": "0%",
+                "y2": "100%",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "offset": "0%",
+                    "stopColor": "#ff4092",
+                    "stopOpacity": 0.8,
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "stop",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "offset": "70%",
+                    "stopColor": "white",
+                    "stopOpacity": 0,
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "stop",
+                },
+              ],
+              "type": "linearGradient",
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "className": "",
+              "color": "url(#oceanGradient)",
+              "data": Array [],
+              "getNull": [Function],
+              "getY": [Function],
+              "stack": false,
+              "style": Object {},
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "className": "ocean_line",
+              "curve": null,
+              "data": Array [],
+              "getNull": [Function],
+              "onNearestX": [Function],
+              "opacity": 1,
+              "stack": false,
+              "strokeStyle": "solid",
+              "strokeWidth": 3,
+              "style": Object {
+                "strokeLinejoin": "round",
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "attr": "y",
+              "attrAxis": "x",
+              "orientation": "left",
+              "tickTotal": 1,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          null,
+          null,
+          null,
+        ],
+        "type": [Function],
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
