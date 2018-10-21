@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactVisTimeline from '../../../BondingCurve/components/charts/Timeline/ReactVisTimeline';
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { Crosshair, XAxis, MarkSeries } from 'react-vis';
+import { Crosshair, XAxis, MarkSeries, VerticalGridLines } from 'react-vis';
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -28,7 +28,7 @@ it('should show hover elements is state has hoverValues', () => {
 
   expect(
     wrapper.containsMatchingElement(
-      <Crosshair />
+      <VerticalGridLines />
     )
   ).toBe(true);
 

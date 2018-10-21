@@ -62,7 +62,6 @@ export const mockWeb3 = {
         getBlock: jest.fn().mockReturnValue({
             timestamp: 1540072
         }),
-        getAccounts: jest.fn().mockReturnValue([]),
         getCode: jest.fn(),
         Contract: MockContract,
         net: {

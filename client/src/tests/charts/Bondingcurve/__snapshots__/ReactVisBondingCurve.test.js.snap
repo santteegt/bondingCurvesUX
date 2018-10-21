@@ -82,12 +82,6 @@ ShallowWrapper {
             }
           }
         />
-        <YAxis
-          attr="y"
-          attrAxis="x"
-          orientation="left"
-          tickTotal={1}
-        />
       </FlexibleXYPlot>,
       "className": "ocean_chart",
     },
@@ -145,12 +139,6 @@ ShallowWrapper {
                 "strokeLinejoin": "round",
               }
             }
-          />,
-          <YAxis
-            attr="y"
-            attrAxis="x"
-            orientation="left"
-            tickTotal={1}
           />,
           null,
           null,
@@ -290,20 +278,6 @@ ShallowWrapper {
           "rendered": null,
           "type": [Function],
         },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "attr": "y",
-            "attrAxis": "x",
-            "orientation": "left",
-            "tickTotal": 1,
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
         null,
         null,
         null,
@@ -380,12 +354,6 @@ ShallowWrapper {
               }
             }
           />
-          <YAxis
-            attr="y"
-            attrAxis="x"
-            orientation="left"
-            tickTotal={1}
-          />
         </FlexibleXYPlot>,
         "className": "ocean_chart",
       },
@@ -443,12 +411,6 @@ ShallowWrapper {
                   "strokeLinejoin": "round",
                 }
               }
-            />,
-            <YAxis
-              attr="y"
-              attrAxis="x"
-              orientation="left"
-              tickTotal={1}
             />,
             null,
             null,
@@ -583,20 +545,6 @@ ShallowWrapper {
               "style": Object {
                 "strokeLinejoin": "round",
               },
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "attr": "y",
-              "attrAxis": "x",
-              "orientation": "left",
-              "tickTotal": 1,
             },
             "ref": null,
             "rendered": null,

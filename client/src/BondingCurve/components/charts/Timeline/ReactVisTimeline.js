@@ -1,17 +1,9 @@
-import { timeFormatDefaultLocale } from 'd3-time-format';
-import english from 'd3-time-format/locale/en-US.json';
-import moment from "moment";
-import React from 'react';
-import { Crosshair, FlexibleWidthXYPlot, LineSeries, MarkSeries, XAxis, GradientDefs, AreaSeries } from 'react-vis';
-import "react-vis/dist/style.css";
-import styles from "./timeline.module.scss";
-import PropTypes from "prop-types";
 
-// To prevent overflowing of large month names
-timeFormatDefaultLocale({
-    ...english,
-    months: english.shortMonths
-});
+import moment from "moment";
+import PropTypes from "prop-types";
+import React from 'react';
+import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis';
+import styles from "./timeline.module.scss";
 
 export default class ReactVisTimeline extends React.Component {
     state = {
@@ -84,22 +76,29 @@ export default class ReactVisTimeline extends React.Component {
 
                     {
                         hoverValues && (
-                            <Crosshair
-                                values={hoverValues}
-                                className={styles.ocean_crosshair}
+                            <VerticalGridLines
+                                className={styles.ocean_crosshair_line}
+                                tickValues={[hoverValues[0].x]}
                             />
                         )
                     }
 
                     {
                         hoverValues && (
-                            <XAxis tickLabelAngle={-35} />
+                            <MarkSeries
+                                className={styles.ocean_crosshair_dot}
+                                size={4}
+                                data={hoverValues}
+                            />
                         )
                     }
 
                     {
                         hoverValues && (
-                            <MarkSeries className={styles.ocean_crosshair_dot} size={4} data={hoverValues} />
+                            <XAxis
+                                tickTotal={6} 
+                                //tickLabelAngle={-35}
+                            />
                         )
                     }
 

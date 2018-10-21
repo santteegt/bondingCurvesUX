@@ -1,14 +1,10 @@
 import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import React from 'react';
+import ReactDOM from "react-dom";
 import BondingCurve from '../BondingCurve/BondingCurve';
 import getWeb3mock from "../utils/getWeb3";
 import { bondingCurveContract, mockWeb3 } from "./mockContract";
-import ReactDOM from "react-dom";
-import ErrorBoundary from "react-error-boundary";
-import ErrorComponent from "../BondingCurve/components/Error";
-import MockTimeline from '../BondingCurve/components/charts/Timeline';
-import Timeline from "../BondingCurve/components/charts/Timeline";
 
 jest.mock('../utils/getWeb3', () => ({
     getWeb3: jest.fn()

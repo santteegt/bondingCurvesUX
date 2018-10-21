@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactVisBondingCurve from '../../../BondingCurve/components/charts/BondingCurve/ReactVisBondingCurve';
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { Crosshair, XAxis, MarkSeries } from 'react-vis';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { MarkSeries, VerticalGridLines, XAxis } from 'react-vis';
+import ReactVisBondingCurve from '../../../BondingCurve/components/charts/BondingCurve/ReactVisBondingCurve';
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -28,7 +28,7 @@ it('should show hover elements is state has hoverValues', () => {
 
   expect(
     wrapper.containsMatchingElement(
-      <Crosshair />
+      <VerticalGridLines />
     )
   ).toBe(true);
 

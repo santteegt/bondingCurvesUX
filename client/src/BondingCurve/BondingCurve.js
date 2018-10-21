@@ -9,6 +9,16 @@ import Timeline from './components/charts/Timeline';
 import ErrorComponent from './components/Error';
 import Loader from './components/Loader';
 
+import "react-vis/dist/style.css";
+import { timeFormatDefaultLocale } from 'd3-time-format';
+import english from 'd3-time-format/locale/en-US.json';
+
+// To prevent overflowing of large month names
+timeFormatDefaultLocale({
+    ...english,
+    months: english.shortMonths
+});
+
 export default class BondingCurve extends Component {
 
     static propTypes = {
@@ -23,10 +33,9 @@ export default class BondingCurve extends Component {
     }
 
     state = {
-        activeTab: this.props.defaultTab || 'bonding-curve',
+        activeTab: this.props.defaultTab || 'timeline',
         error: false,
         web3: null,
-        accounts: null,
         contract: null,
         loading: true
     }
@@ -68,9 +77,6 @@ export default class BondingCurve extends Component {
             // Check if connected
             await web3.eth.net.isListening();
 
-            // Use web3 to get the user's accounts.
-            const accounts = await web3.eth.getAccounts();
-
             if (!web3.utils.isAddress(contractAddress)) {
                 this.setState({
                     loading: false,
@@ -87,7 +93,7 @@ export default class BondingCurve extends Component {
                         error: "Invalid contract"
                     })
                 } else {
-                    this.setState({ web3, accounts, contract, loading: false });
+                    this.setState({ web3, contract, loading: false });
                 }
             }
         } catch (error) {
@@ -121,7 +127,7 @@ export default class BondingCurve extends Component {
     }
 
     render() {
-        const { activeTab, web3, error, accounts, loading, contract } = this.state;
+        const { activeTab, web3, error, loading, contract } = this.state;
         const { contractAddress, height } = this.props;
 
         if (loading) return <Loader height={height} />;
@@ -157,7 +163,6 @@ export default class BondingCurve extends Component {
                                     key={activeTab}
                                     web3={web3}
                                     height={height}
-                                    account={accounts[0]}
                                     contractAddress={contractAddress}
                                     bondingCurveContract={contract}
                                 />

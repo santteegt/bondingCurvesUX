@@ -5,7 +5,7 @@ import Loader from "../../Loader";
 import { calculateSaleReturn, calculateBuyPrice } from "../../../../utils/bondingcurveCalculator";
 import Footer from "../../Footer";
 import numeral from "numeral";
-
+import {BigNumber} from "bignumber.js";
 export default class BondingCurveChart extends Component {
 
     static propTypes = {
@@ -27,16 +27,15 @@ export default class BondingCurveChart extends Component {
 
     async componentDidMount() {
 
-        const { account, bondingCurveContract } = this.props;
+        const { bondingCurveContract } = this.props;
 
         try {
 
-            const tokenBalance = account ? +await bondingCurveContract.methods.tokenBalance().call() : 0;
-            const dropsBalance = account ? +await bondingCurveContract.methods.dropsBalance().call() : 0;
-            const dropsSupply = account ? +await bondingCurveContract.methods.dropsSupply().call() : 0;
+            const dropsSupply = +await bondingCurveContract.methods.dropsSupply().call();
             const reserveRatio = +await bondingCurveContract.methods.reserveRatio().call() / 1000000
             const poolBalance = +await bondingCurveContract.methods.poolBalance().call();
             const scale = +await bondingCurveContract.methods.scale().call();
+            // eslint-disable-next-line
             const totalSupply = +await bondingCurveContract.methods.totalSupply().call();
             const ndrops = +await bondingCurveContract.methods.ndrops().call();
             const nOcean = +await bondingCurveContract.methods.nOcean().call();
@@ -44,8 +43,6 @@ export default class BondingCurveChart extends Component {
 
             const params = {
                 dropsSupply,
-                tokenBalance,
-                dropsBalance,
                 reserveRatio,
                 poolBalance,
                 scale,
@@ -53,7 +50,7 @@ export default class BondingCurveChart extends Component {
                 ghostSupply,
                 nOcean,
                 ndrops,
-                price: poolBalance / (totalSupply * reserveRatio)
+                price: poolBalance / (nOcean * reserveRatio)
             }
 
             this.setState({ loading: true })
@@ -79,17 +76,17 @@ export default class BondingCurveChart extends Component {
         let data = [];
         let step = Math.round(totalSupply / 100);
 
-        for (let i = step; i < totalSupply * 1.3; i += step) {
+        for (let i = step; i < totalSupply * 1.5; i += step) {
             if (i < totalSupply) {
+                
                 let eth = calculateSaleReturn({
                     totalSupply,
                     poolBalance,
                     reserveRatio,
-                    amount: totalSupply - i
+                    amount: new BigNumber(totalSupply).minus(i).toString(10)
                 });
 
                 const price = (parseFloat(poolBalance, 10) - Math.round(eth)) / (reserveRatio * i);
-
                 data.push({ supply: i, sell: +price.toFixed(4), value: +price.toFixed(4) });
             } else if (i > totalSupply) {
                 let eth = Math.round(calculateBuyPrice({
@@ -99,7 +96,7 @@ export default class BondingCurveChart extends Component {
                     amount: i - totalSupply
                 }));
                 const price = (eth + parseFloat(poolBalance, 10)) / (reserveRatio * i);
-                data.push({ supply: i, buy: +price.toFixed(4), value: +price.toFixed(4) });
+                data.push({ supply: +i, buy: +price.toFixed(4), value: +price.toFixed(4) });
             }
         }
 

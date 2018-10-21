@@ -1,17 +1,8 @@
-import { timeFormatDefaultLocale } from 'd3-time-format';
-import english from 'd3-time-format/locale/en-US.json';
+import numeral from "numeral";
 import PropTypes from "prop-types";
 import React from 'react';
-import { FlexibleWidthXYPlot, LineSeries, MarkSeries, XAxis, Crosshair, AreaSeries, YAxis, GradientDefs } from 'react-vis';
-import "react-vis/dist/style.css";
-import styles from "./bondingcurve.module.scss";
-import numeral from "numeral";
-
-// To prevent overflowing of large month names
-timeFormatDefaultLocale({
-    ...english,
-    months: english.shortMonths
-});
+import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis';
+import styles from "../chart.module.scss";
 
 export default class ReactVisBondingCurve extends React.Component {
     state = {
@@ -86,15 +77,20 @@ export default class ReactVisBondingCurve extends React.Component {
                         data={data}
                     />
 
-                    <YAxis
-                        tickTotal={1}
-                    />
-
                     {
                         hoverValues && (
                             <XAxis
-                                tickTotal={3}
+                                tickTotal={6}
                                 tickFormat={this.tickFormat}
+                            />
+                        )
+                    }
+
+                    {
+                        hoverValues && (
+                            <VerticalGridLines
+                                className={styles.ocean_crosshair_line}
+                                tickValues={[hoverValues[0].supply]}
                             />
                         )
                     }
@@ -105,15 +101,6 @@ export default class ReactVisBondingCurve extends React.Component {
                                 className={styles.ocean_crosshair_dot}
                                 size={4}
                                 data={hoverValues}
-                            />
-                        )
-                    }
-
-                    {
-                        hoverValues && (
-                            <Crosshair
-                                values={hoverValues}
-                                className={styles.ocean_crosshair}
                             />
                         )
                     }

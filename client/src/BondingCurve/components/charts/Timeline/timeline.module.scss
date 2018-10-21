@@ -1,37 +1,5 @@
 @import "../../../../assets/stylesheets/variables";
-
-.ocean_chart{
-    position:relative;
-    overflow:hidden;
-
-    .ocean_line{
-        stroke:$brand-pink !important;
-    }
-    
-    .ocean_crosshair_dot{
-        :global{
-            circle{
-                fill: $brand-purple !important;
-                stroke:$brand-white !important;
-            }
-        }
-    }
-    
-    .ocean_crosshair{
-    
-        :global{
-            .rv-crosshair__line{
-                border-left: 2px dotted $brand-grey-lighter;
-                background:transparent;
-                opacity: .7;
-    
-            }
-            .rv-crosshair__inner{
-                display:none;
-            }
-        }
-    }
-}
+@import "../chart.module.scss";
 
 .timeline_filter{
     color: $brand-grey-light;
