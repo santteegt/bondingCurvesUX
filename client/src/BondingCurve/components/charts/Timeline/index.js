@@ -137,7 +137,7 @@ export default class Timeline extends Component {
 
         return (
             <div>
-                <div>
+                <div style={{ minHeight: height }}>
                     <ReactVisTimeline
                         activeFilter={activeFilter}
                         minDomain={minDomain}
@@ -148,8 +148,9 @@ export default class Timeline extends Component {
                 </div>
 
                 <Footer
+                    symbol="OCN"
                     detail={detail ? {
-                        title: `OCN ${detail.y.toFixed(4)}`,
+                        title: `${detail.y.toFixed(4)}`,
                         sub: moment(detail.x).format("lll")
                     } : null}
                 >

@@ -11,7 +11,7 @@
     "deploy:ropsten": "truffle migrate --reset --network ropsten",
     "start": "serve -s src/",
     "lint": "eslint './{migrations,test}/**/*.js'  && ./node_modules/solium/bin/solium.js -d ./contracts/",
-    "test": "npm run lint && truffle test"
+    "test": "truffle test"
   },
   "author": "",
   "license": "Apache-2.0",

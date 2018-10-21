@@ -19,3 +19,10 @@ it('renders without crashing with children', () => {
   ReactDOM.render(<Footer><h1>Test</h1></Footer>, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
+
+it('renders without crashing with symbol', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<Footer symbol={"TEST"} />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});

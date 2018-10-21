@@ -2,22 +2,29 @@ import React from "react";
 import styles from "./footer.module.scss";
 import PropTypes from "prop-types";
 
-const Footer = ({ detail, children }) => (
-    <div className={styles.bondingcurve_module__footer}>
-        <div className={styles.data_point_detail}>
-            {
-                detail && (
-                    <>
-                        {
-                            detail.title && <div className={styles.data_point_detail__title}>{detail.title}</div>
-                        }
-                        {
-                            detail.sub && <div className={styles.data_point_detail__date}>{detail.sub}</div>
-                        }
-                    </>
-                )
+const Footer = ({ detail, children, symbol }) => (
+    <div className={styles.bondingcurve_module_footer}>
+        <div className={styles.bondingcurve_module_footer__left}>
+            {symbol && (
+                <div className={styles.symbol}>{symbol}</div>
+            )
             }
+            <div className={styles.data_point_detail}>
+                {
+                    detail && (
+                        <>
+                            {
+                                detail.title && <div className={styles.data_point_detail__title}>{detail.title}</div>
+                            }
+                            {
+                                detail.sub && <div className={styles.data_point_detail__sub}>{detail.sub}</div>
+                            }
+                        </>
+                    )
+                }
+            </div>
         </div>
+
         <div>
             {
                 children ? children : null
@@ -31,7 +38,8 @@ Footer.propTypes = {
         title: PropTypes.string,
         sub: PropTypes.string,
     }),
-    children: PropTypes.any
+    children: PropTypes.any,
+    symbol: PropTypes.string
 }
 
 export default Footer;

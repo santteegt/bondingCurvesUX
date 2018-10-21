@@ -1,10 +1,29 @@
 @import "../../../assets/stylesheets/variables";
 
-.bondingcurve_module__footer{
+.bondingcurve_module_footer{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding: 0 .8rem .8rem .8rem;
+
+    .bondingcurve_module_footer__left{
+        display: flex;
+        align-items: center;
+
+        .symbol{
+            background: #141414;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: .5rem;
+            color: $brand-white;
+            border-radius: 100%;
+            font-size: .6rem;
+            box-shadow: 5px 5px 15px rgba(20, 20, 20, 0.22);
+        }
+    }
 
     .data_point_detail{
         text-align: left;
@@ -14,10 +33,11 @@
             font-size: 1rem;
             color:$brand-black;
         }
-        .data_point_detail__date{
+        .data_point_detail__sub{
             font-family: $font-family-title;
             font-size: .6rem;
             color:$brand-grey-light;
+            padding-bottom: .3rem;
         }
     }
 }

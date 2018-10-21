@@ -58,6 +58,8 @@ export default class BondingCurveChart extends Component {
 
             this.setState({ loading: true })
 
+            console.log(params)
+
             const { data, currentPrice } = this.getChartData(params);
 
             this.setState({
@@ -77,7 +79,7 @@ export default class BondingCurveChart extends Component {
         let data = [];
         let step = Math.round(totalSupply / 100);
 
-        for (let i = step; i < totalSupply * 1.5; i += step) {
+        for (let i = step; i < totalSupply * 1.3; i += step) {
             if (i < totalSupply) {
                 let eth = calculateSaleReturn({
                     totalSupply,
@@ -120,15 +122,18 @@ export default class BondingCurveChart extends Component {
 
         return (
             <div>
-                <ReactVisBondingCurve
-                    data={data}
-                    onShowDetail={this.setDetail}
-                    height={200}
-                />
+                <div style={{ minHeight: height }}>
+                    <ReactVisBondingCurve
+                        data={data}
+                        onShowDetail={this.setDetail}
+                        height={200}
+                    />
+                </div>
 
                 <Footer
+                    symbol="OCN"
                     detail={{
-                        title: `OCN ${selectedItem ? selectedItem.value : currentPrice.value.toFixed(4)}`,
+                        title: `${selectedItem ? selectedItem.value : currentPrice.value.toFixed(4)}`,
                         sub: selectedItem ? `Supply: ${numeral(selectedItem.supply).format('0,0')}` : `Total supply: ${numeral(currentPrice.supply).format('0,0')}`
                     }}
                 />
