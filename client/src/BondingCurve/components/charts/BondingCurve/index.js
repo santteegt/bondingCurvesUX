@@ -32,11 +32,11 @@ export default class BondingCurveChart extends Component {
         try {
 
             const dropsSupply = +await bondingCurveContract.methods.dropsSupply().call();
-            const reserveRatio = +await bondingCurveContract.methods.reserveRatio().call() / 1000000
-            const poolBalance = +await bondingCurveContract.methods.poolBalance().call();
+            const reserveRatio = .2;
+            const poolBalance = 4000000;
             const scale = +await bondingCurveContract.methods.scale().call();
             // eslint-disable-next-line
-            const totalSupply = +await bondingCurveContract.methods.totalSupply().call();
+            const totalSupply = 1000000;
             const ndrops = +await bondingCurveContract.methods.ndrops().call();
             const nOcean = +await bondingCurveContract.methods.nOcean().call();
             const ghostSupply = +await bondingCurveContract.methods.ghostSupply().call();
@@ -46,11 +46,11 @@ export default class BondingCurveChart extends Component {
                 reserveRatio,
                 poolBalance,
                 scale,
-                totalSupply: nOcean,
+                totalSupply,
                 ghostSupply,
                 nOcean,
                 ndrops,
-                price: poolBalance / (nOcean * reserveRatio)
+                price: poolBalance / (totalSupply * reserveRatio)
             }
 
             this.setState({ loading: true })
@@ -80,7 +80,7 @@ export default class BondingCurveChart extends Component {
             if (i < totalSupply) {
                 
                 let eth = calculateSaleReturn({
-                    totalSupply,
+                    totalSupply:10,
                     poolBalance,
                     reserveRatio,
                     amount: new BigNumber(totalSupply).minus(i).toString(10)
