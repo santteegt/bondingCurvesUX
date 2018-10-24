@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
-import { Component } from 'react';
-import React from "react";
-import ReactVisTimeline from './ReactVisTimeline';
-import styles from "./timeline.module.scss";
 import cn from "classnames";
 import moment from "moment";
+import PropTypes from 'prop-types';
+import React from "react";
 import Footer from '../../Footer';
+import ReactVisTimeline from './ReactVisTimeline';
+import styles from "./timeline.module.scss";
 
-export default class Timeline extends Component {
+export default class Timeline extends React.PureComponent {
 
     static propTypes = {
         bondingCurveContract: PropTypes.object.isRequired,
@@ -70,9 +69,6 @@ export default class Timeline extends Component {
                         throw err;
                     }
 
-                })
-                .on('changed', (event) => {
-                    console.log("changed", event)
                 })
                 .on('error', console.error);
 

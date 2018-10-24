@@ -1,12 +1,13 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import ReactVisBondingCurve from "./ReactVisBondingCurve";
-import Loader from "../../Loader";
-import { calculateSaleReturn, calculateBuyPrice } from "../../../../utils/bondingcurveCalculator";
-import Footer from "../../Footer";
+import { BigNumber as BN } from "bignumber.js";
 import numeral from "numeral";
-import {BigNumber} from "bignumber.js";
-export default class BondingCurveChart extends Component {
+import PropTypes from "prop-types";
+import React from "react";
+import { calculateBuyPrice } from "../../../../utils/bondingcurveCalculator";
+import Footer from "../../Footer";
+import Loader from "../../Loader";
+import ReactVisBondingCurve from "./ReactVisBondingCurve";
+
+export default class BondingCurveChart extends React.PureComponent {
 
     static propTypes = {
         bondingCurveContract: PropTypes.object.isRequired,
@@ -31,31 +32,41 @@ export default class BondingCurveChart extends Component {
 
         try {
 
-            const dropsSupply = +await bondingCurveContract.methods.dropsSupply().call();
-            const reserveRatio = +await bondingCurveContract.methods.reserveRatio().call() / 1000000
-            const poolBalance = +await bondingCurveContract.methods.poolBalance().call();
-            const scale = +await bondingCurveContract.methods.scale().call();
+            this.setState({ loading: true })
+
+            const dropsSupply = BN(await bondingCurveContract.methods.dropsSupply().call());
+            const scale = BN(await bondingCurveContract.methods.scale().call());
+            const reserveRatio = BN(await bondingCurveContract.methods.reserveRatio().call()).div(1000000)
+            const poolBalance = BN(await bondingCurveContract.methods.poolBalance().call()).div(scale);
             // eslint-disable-next-line
-            const totalSupply = +await bondingCurveContract.methods.totalSupply().call();
-            const ndrops = +await bondingCurveContract.methods.ndrops().call();
-            const nOcean = +await bondingCurveContract.methods.nOcean().call();
-            const ghostSupply = +await bondingCurveContract.methods.ghostSupply().call();
+            const totalSupply = BN(await bondingCurveContract.methods.totalSupply().call());
+            const ndrops = BN(await bondingCurveContract.methods.ndrops().call());
+            const nOcean = BN(await bondingCurveContract.methods.nOcean().call()).div(scale);
+            const ghostSupply = BN(await bondingCurveContract.methods.ghostSupply().call());
+
+            console.log({
+                dropsSupply: dropsSupply.toNumber(),
+                reserveRatio: reserveRatio.toNumber(),
+                poolBalance: poolBalance.toNumber(),
+                scale: scale.toNumber(),
+                totalSupply: totalSupply.toNumber(),
+                ghostSupply: ghostSupply.toNumber(),
+                nOcean: nOcean.toNumber(),
+                ndrops: ndrops.toNumber(),
+                price: poolBalance.div(totalSupply.times(reserveRatio)).toNumber()
+            })
 
             const params = {
                 dropsSupply,
                 reserveRatio,
                 poolBalance,
                 scale,
-                totalSupply: nOcean,
+                totalSupply,
                 ghostSupply,
                 nOcean,
                 ndrops,
-                price: poolBalance / (nOcean * reserveRatio)
+                price: poolBalance.div(totalSupply.times(reserveRatio)).toNumber()
             }
-
-            this.setState({ loading: true })
-
-            console.log(params)
 
             const { data, currentPrice } = this.getChartData(params);
 
@@ -71,38 +82,49 @@ export default class BondingCurveChart extends Component {
         }
     }
 
-    getChartData({ totalSupply, reserveRatio, poolBalance, price: currentPrice, scale }) {
+    getChartData({ totalSupply, reserveRatio, poolBalance, price: currentPrice }) {
 
-        let data = [];
-        let step = Math.round(totalSupply / 100);
+         // TODO - remark - Not sure how much we should display
 
-        for (let i = step; i < totalSupply * 1.5; i += step) {
-            if (i < totalSupply) {
-                
-                let eth = calculateSaleReturn({
-                    totalSupply,
-                    poolBalance,
-                    reserveRatio,
-                    amount: new BigNumber(totalSupply).minus(i).toString(10)
-                });
+         /*
+          * TODO - remark - Not sure if we need to display buy prices if supply < total supply like https://bondingcurves.relevant.community/
+          * If so, we'll need to do something like this. The issue is that when doing this, we can't have a variable supply/pool balance to calculate the price.
+          * When using a variable amount like relevant, the calculations didn't seem to be correct for me.
+          * https://github.com/relevant-community/bonding-curve-component/blob/ceba574b9eb740715331e3124635b87b06c3790f/src/Chart.js#L31
+          */
 
-                const price = (parseFloat(poolBalance, 10) - Math.round(eth)) / (reserveRatio * i);
-                data.push({ supply: i, sell: +price.toFixed(4), value: +price.toFixed(4) });
-            } else if (i > totalSupply) {
-                let eth = Math.round(calculateBuyPrice({
-                    totalSupply,
-                    poolBalance,
-                    reserveRatio,
-                    amount: i - totalSupply
-                }));
-                const price = (eth + parseFloat(poolBalance, 10)) / (reserveRatio * i);
-                data.push({ supply: +i, buy: +price.toFixed(4), value: +price.toFixed(4) });
-            }
+
+        const total = 100000;
+
+        const step = Math.round(total / 100);
+        const amount = BN(step);
+
+        let _supply = BN(10);
+        let _balance = BN(1)
+
+        const data = [];
+
+        for (let i = step; i < total * 1.5; i += step) {
+
+            const [tokens, price] = calculateBuyPrice({
+                totalSupply: _supply,
+                amount,
+                poolBalance: _balance,
+                reserveRatio
+            })
+
+            _supply = _supply.plus(tokens);
+            _balance = _balance.plus(amount);
+
+            data.push({
+                supply: _supply.toNumber(),
+                sell: +price.toFixed(4),
+                value: +price.toFixed(4)
+            })
+
         }
 
-        console.log(data)
-
-        return { data, currentPrice: { supply: totalSupply, value: currentPrice / scale } };
+        return { data, currentPrice: { supply: totalSupply, value: currentPrice } };
     }
 
     setDetail = (selectedItem) => {
@@ -110,22 +132,27 @@ export default class BondingCurveChart extends Component {
     }
 
     render() {
-        const { data, loading, selectedItem, currentPrice } = this.state;
+        const { data, loading, selectedItem, currentPrice, error } = this.state;
         const { height } = this.props;
 
-        if (this.state.error) throw this.state.error;
-
-        if (loading) return <Loader height={height} />;
+        if (error) throw error;
 
         return (
             <div>
-                <div style={{ minHeight: height }}>
-                    <ReactVisBondingCurve
-                        data={data}
-                        onShowDetail={this.setDetail}
-                        height={200}
-                    />
-                </div>
+                {
+                    loading ? (
+                        <Loader height={height} />
+                    ) : (
+                            <div style={{ minHeight: height }}>
+                                <ReactVisBondingCurve
+                                    data={data}
+                                    onShowDetail={this.setDetail}
+                                    height={200}
+                                />
+                            </div>
+                        )
+                }
+
 
                 <Footer
                     symbol="OCN"

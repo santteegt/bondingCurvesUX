@@ -4,7 +4,7 @@ import React from 'react';
 import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis';
 import styles from "../chart.module.scss";
 
-export default class ReactVisBondingCurve extends React.Component {
+export default class ReactVisBondingCurve extends React.PureComponent {
     state = {
         hoverValues: null
     }

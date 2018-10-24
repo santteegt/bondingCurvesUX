@@ -5,7 +5,7 @@ import React from 'react';
 import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis';
 import styles from "./timeline.module.scss";
 
-export default class ReactVisTimeline extends React.Component {
+export default class ReactVisTimeline extends React.PureComponent{
     state = {
         hoverValues: null
     }

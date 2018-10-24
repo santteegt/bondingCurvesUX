@@ -29,6 +29,7 @@ contract BondingCurve is BancorFormula, Ownable {
     event TokenWithdraw(address indexed _requester, uint256 amount);
     event TokenBuyDrops(address indexed _requester, uint256 _ocn, uint256 _drops, uint256 _price);
     event TokenSellDrops(address indexed _requester, uint256 _ocn, uint256 _drops, uint256 _price);
+    event Debug(uint256 _supply, uint256 _connectorBalance, uint32 _connectorWeight, uint256 _depositAmount);
 
 
     ///////////////////////////////////////////////////////////////////
@@ -79,6 +80,7 @@ contract BondingCurve is BancorFormula, Ownable {
     // Bonding Curve Module
     ///////////////////////////////////////////////////////////////////
     function buyDrops(uint256 _ocn) public returns (uint256 _drops) {
+        // emit Debug(ndrops, nOcean / scale, reserveRatio, _ocn / scale);
         tokensToMint = calculatePurchaseReturn(ndrops, nOcean / scale, reserveRatio, _ocn / scale);
         ndrops = ndrops.add(tokensToMint);
         nOcean = nOcean.add(_ocn);
