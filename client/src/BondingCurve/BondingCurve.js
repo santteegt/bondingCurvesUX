@@ -1,6 +1,6 @@
 import cn from "classnames";
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { getWeb3 } from '../utils/getWeb3';
 import styles from './BondingCurve.module.scss';
@@ -19,17 +19,20 @@ timeFormatDefaultLocale({
     months: english.shortMonths
 });
 
-export default class BondingCurve extends Component {
+export default class BondingCurve extends React.Component {
 
     static propTypes = {
         defaultTab: PropTypes.string,
         contractAddress: PropTypes.string.isRequired,
         contractArtifact: PropTypes.object.isRequired,
-        height: PropTypes.number
+        height: PropTypes.number,
+        onError: PropTypes.func,
+        onLoaded: PropTypes.func,
     }
 
     static defaultProps = {
-        height: 200
+        height: 200,
+        onLoaded: () => { },
     }
 
     state = {
@@ -59,7 +62,7 @@ export default class BondingCurve extends Component {
     };
 
     getContract = async (props) => {
-        const { contractAddress, contractArtifact } = props;
+        const { contractAddress, contractArtifact, onLoaded } = props;
 
         // Reset state
         this.setState({
@@ -93,6 +96,8 @@ export default class BondingCurve extends Component {
                         error: "Invalid contract"
                     })
                 } else {
+                    onLoaded();
+
                     this.setState({ web3, contract, loading: false });
                 }
             }
@@ -108,15 +113,22 @@ export default class BondingCurve extends Component {
     }
 
     renderErrorComponent = (error) => {
-        const { height } = this.props;
+        const { height, onError } = this.props;
 
         let message = error;
+        let originalMessage = error;
 
         if (error.error || error.message) {
+            originalMessage = error.message || error.error.message;
             console.error(error.message || error.error.message);
             message = "An error has occurred";
         } else {
             console.error(message)
+        }
+
+        if (onError) {
+            onError(originalMessage);
+            return null;
         }
 
         return (

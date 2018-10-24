@@ -32,10 +32,12 @@ it('renders without crashing', () => {
 //     expect(wrapper).toMatchSnapshot()
 // });
 
-it('should handle setDetail', () => {
+it('should handle setDetail', async () => {
     const wrapper = shallow(
         <BondingCurve height={200} bondingCurveContract={bondingCurveContract} web3={mockWeb3} contractAddress={contractAddress} />
     );
+
+    await wrapper.instance().componentDidMount();
 
     wrapper.instance().setDetail({ value: 5, supply: 10 })
 
