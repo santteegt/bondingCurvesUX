@@ -2,13 +2,13 @@
 
 .app {
   text-align: center;
-  min-height:calc(100vh - 20px);
+  min-height: calc(100vh - 20px);
   background-color: $brand-black;
 }
 
 .app_logo {
   height: 5rem;
-  g{
+  g {
     fill: $brand-white;
     stroke: none;
   }
@@ -22,17 +22,17 @@
   font-size: calc(10px + 2vmin);
   color: white;
   padding: 5rem;
-
-  .app_header__input{
-    width:300px;
-    margin-top:2rem;
-    padding: .3rem;
-    text-align:center;
-    border-radius:4px;
-  }
 }
 
-.bondingcurve{
+.app_header__input {
+  width: 300px;
+  margin-top: 2rem;
+  padding: .3rem;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.bondingcurve {
   width: 500px;
   margin: 0 auto;
 }

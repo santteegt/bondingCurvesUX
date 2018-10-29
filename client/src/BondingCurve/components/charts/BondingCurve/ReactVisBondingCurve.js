@@ -1,10 +1,10 @@
-import numeral from "numeral";
-import PropTypes from "prop-types";
-import React from 'react';
-import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis';
-import styles from "../chart.module.scss";
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import numeral from 'numeral'
+import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis'
+import styles from '../chart.module.scss'
 
-export default class ReactVisBondingCurve extends React.PureComponent {
+export default class ReactVisBondingCurve extends PureComponent {
     state = {
         hoverValues: null
     }
@@ -12,13 +12,13 @@ export default class ReactVisBondingCurve extends React.PureComponent {
     static propTypes = {
         onShowDetail: PropTypes.func,
         height: PropTypes.number.isRequired,
-        data: PropTypes.array.isRequired,
+        data: PropTypes.array.isRequired
     }
 
     _onMouseLeave = () => {
-        const { onShowDetail } = this.props;
+        const { onShowDetail } = this.props
 
-        this.setState({ hoverValues: null });
+        this.setState({ hoverValues: null })
 
         if (onShowDetail) {
             onShowDetail()
@@ -26,9 +26,9 @@ export default class ReactVisBondingCurve extends React.PureComponent {
     };
 
     _onNearestX = (value) => {
-        const { onShowDetail } = this.props;
+        const { onShowDetail } = this.props
 
-        this.setState({ hoverValues: [value] });
+        this.setState({ hoverValues: [value] })
 
         if (onShowDetail) {
             onShowDetail(value)
@@ -43,8 +43,8 @@ export default class ReactVisBondingCurve extends React.PureComponent {
     tickFormat = (d) => numeral(d).format('0 a');
 
     render() {
-        const { hoverValues } = this.state;
-        const { height, data } = this.props;
+        const { hoverValues } = this.state
+        const { height, data } = this.props
 
         return (
             <div className={styles.ocean_chart}>
@@ -72,7 +72,7 @@ export default class ReactVisBondingCurve extends React.PureComponent {
                     <LineSeries
                         strokeWidth={3}
                         className={styles.ocean_line}
-                        style={{ strokeLinejoin: "round" }}
+                        style={{ strokeLinejoin: 'round' }}
                         onNearestX={this._onNearestX}
                         data={data}
                     />
@@ -107,6 +107,6 @@ export default class ReactVisBondingCurve extends React.PureComponent {
 
                 </FlexibleWidthXYPlot>
             </div>
-        );
+        )
     }
 }

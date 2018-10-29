@@ -1,11 +1,11 @@
 
-import moment from "moment";
-import PropTypes from "prop-types";
-import React from 'react';
-import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis';
-import styles from "./timeline.module.scss";
+import React, { PureComponent } from 'react'
+import moment from 'moment'
+import PropTypes from 'prop-types'
+import { AreaSeries, FlexibleWidthXYPlot, GradientDefs, LineSeries, MarkSeries, VerticalGridLines, XAxis } from 'react-vis'
+import styles from './timeline.module.scss'
 
-export default class ReactVisTimeline extends React.PureComponent{
+export default class ReactVisTimeline extends PureComponent {
     state = {
         hoverValues: null
     }
@@ -18,9 +18,9 @@ export default class ReactVisTimeline extends React.PureComponent{
     }
 
     _onMouseLeave = () => {
-        const { onShowDetail } = this.props;
+        const { onShowDetail } = this.props
 
-        this.setState({ hoverValues: null });
+        this.setState({ hoverValues: null })
 
         if (onShowDetail) {
             onShowDetail()
@@ -28,21 +28,20 @@ export default class ReactVisTimeline extends React.PureComponent{
     };
 
     _onNearestX = (value) => {
-        const { onShowDetail } = this.props;
+        const { onShowDetail } = this.props
 
-        this.setState({ hoverValues: [value] });
+        this.setState({ hoverValues: [value] })
 
         if (onShowDetail) {
             onShowDetail(value)
         }
     };
 
-
     render() {
-        const { hoverValues } = this.state;
-        const { minDomain, height, data } = this.props;
+        const { hoverValues } = this.state
+        const { minDomain, height, data } = this.props
 
-        const domain = minDomain ? [minDomain, moment().endOf('day').valueOf()] : null;
+        const domain = minDomain ? [minDomain, moment().endOf('day').valueOf()] : null
 
         return (
             <div className={styles.ocean_chart}>
@@ -57,7 +56,7 @@ export default class ReactVisTimeline extends React.PureComponent{
                     <LineSeries
                         strokeWidth={3}
                         className={styles.ocean_line}
-                        style={{ strokeLinejoin: "round" }}
+                        style={{ strokeLinejoin: 'round' }}
                         onNearestX={this._onNearestX}
                         data={data}
                     />
@@ -96,14 +95,13 @@ export default class ReactVisTimeline extends React.PureComponent{
                     {
                         hoverValues && (
                             <XAxis
-                                tickTotal={6} 
-                                //tickLabelAngle={-35}
+                                tickTotal={6}
                             />
                         )
                     }
 
                 </FlexibleWidthXYPlot>
             </div>
-        );
+        )
     }
 }

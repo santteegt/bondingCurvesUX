@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "oceanprotocol",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error"
+        ]
+      }
+    ]
+  }
+}

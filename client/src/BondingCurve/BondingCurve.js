@@ -1,38 +1,36 @@
-import cn from "classnames";
-import PropTypes from 'prop-types';
-import React from 'react';
-import ErrorBoundary from 'react-error-boundary';
-import { getWeb3 } from '../utils/getWeb3';
-import styles from './BondingCurve.module.scss';
-import BondingCurveChart from './components/charts/BondingCurve';
-import Timeline from './components/charts/Timeline';
-import ErrorComponent from './components/Error';
-import Loader from './components/Loader';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import ErrorBoundary from 'react-error-boundary'
+import { getWeb3 } from '../utils/getWeb3'
+import styles from './BondingCurve.module.scss'
+import BondingCurveChart from './components/charts/BondingCurve'
+import Timeline from './components/charts/Timeline'
+import ErrorComponent from './components/Error'
+import Loader from './components/Loader'
 
-import "react-vis/dist/style.css";
-import { timeFormatDefaultLocale } from 'd3-time-format';
-import english from 'd3-time-format/locale/en-US.json';
+import 'react-vis/dist/style.css'
+import { timeFormatDefaultLocale } from 'd3-time-format'
+import english from 'd3-time-format/locale/en-US.json'
 
 // To prevent overflowing of large month names
 timeFormatDefaultLocale({
     ...english,
     months: english.shortMonths
-});
+})
 
-export default class BondingCurve extends React.Component {
-
+export default class BondingCurve extends PureComponent {
     static propTypes = {
         defaultTab: PropTypes.string,
         contractAddress: PropTypes.string.isRequired,
         contractArtifact: PropTypes.object.isRequired,
         height: PropTypes.number,
         onError: PropTypes.func,
-        onLoaded: PropTypes.func,
+        onLoaded: PropTypes.func
     }
 
     static defaultProps = {
         height: 200,
-        onLoaded: () => { },
+        onLoaded: () => { }
     }
 
     state = {
@@ -45,16 +43,16 @@ export default class BondingCurve extends React.Component {
 
     componentDidMount = async () => {
         try {
-            await this.getContract(this.props);
+            await this.getContract(this.props)
         } catch (error) {
             this.setState({ error, loading: false })
         }
     };
 
-    componentWillReceiveProps = async (nextProps) => {
+    componentDidUpdate = async (prevProps) => {
         try {
-            if (this.props.contractAddress !== nextProps.contractAddress) {
-                await this.getContract(nextProps);
+            if (this.props.contractAddress !== prevProps.contractAddress) {
+                await this.getContract(this.props)
             }
         } catch (error) {
             this.setState({ error, loading: false })
@@ -62,7 +60,7 @@ export default class BondingCurve extends React.Component {
     };
 
     getContract = async (props) => {
-        const { contractAddress, contractArtifact, onLoaded } = props;
+        const { contractAddress, contractArtifact, onLoaded } = props
 
         // Reset state
         this.setState({
@@ -73,62 +71,61 @@ export default class BondingCurve extends React.Component {
         })
 
         try {
-
             // Get network provider and web3 instance.
-            const web3 = getWeb3();
+            const web3 = getWeb3()
 
             // Check if connected
-            await web3.eth.net.isListening();
+            await web3.eth.net.isListening()
 
             if (!web3.utils.isAddress(contractAddress)) {
                 this.setState({
                     loading: false,
-                    error: "Invalid address"
+                    error: 'Invalid address'
                 })
             } else {
-                const contract = new web3.eth.Contract(contractArtifact.abi, contractAddress);
+                const contract = new web3.eth.Contract(contractArtifact.abi, contractAddress)
 
-                const code = await web3.eth.getCode(contractAddress);
+                const code = await web3.eth.getCode(contractAddress)
 
-                if (code === "0x") {
+                if (code === '0x') {
                     this.setState({
                         loading: false,
-                        error: "Invalid contract"
+                        error: 'Invalid contract'
                     })
                 } else {
-                    onLoaded();
+                    onLoaded()
 
-                    this.setState({ web3, contract, loading: false });
+                    this.setState({ web3, contract, loading: false })
                 }
             }
         } catch (error) {
-            throw error;
+            throw error
         }
     }
 
     toggleTab(tabName) {
         this.setState({
             activeTab: tabName
-        });
+        })
     }
 
     renderErrorComponent = (error) => {
-        const { height, onError } = this.props;
+        const { height, onError } = this.props
 
-        let message = error;
-        let originalMessage = error;
+        let message = error
+        let originalMessage = error
 
         if (error.error || error.message) {
-            originalMessage = error.message || error.error.message;
-            console.error(error.message || error.error.message);
-            message = "An error has occurred";
+            originalMessage = error.message || error.error.message
+            console.error(error.message || error.error.message)
+            message = 'An error has occurred'
         } else {
             console.error(message)
         }
 
         if (onError) {
-            onError(originalMessage);
-            return null;
+            onError(originalMessage)
+            return null
         }
 
         return (
@@ -139,25 +136,42 @@ export default class BondingCurve extends React.Component {
     }
 
     render() {
-        const { activeTab, web3, error, loading, contract } = this.state;
-        const { contractAddress, height } = this.props;
+        return (
+            <div className={styles.bondingModule}>
+                {this.renderContent()}
+            </div>
+        )
+    }
 
-        if (loading) return <Loader height={height} />;
+    renderContent = () => {
+        const { activeTab, web3, error, loading, contract } = this.state
+        const { contractAddress, height } = this.props
+
+        if (loading) return <Loader style={{ minHeight: height }} />
 
         // Unable to load contract
-        if (!loading && !web3 && !error) return null;
+        if (!loading && !web3 && !error) return null
 
-        const Tab = activeTab === 'timeline' ? Timeline : BondingCurveChart;
+        const isActive = (key) => activeTab === key
+
+        const Tab = isActive('timeline') ? Timeline : BondingCurveChart
 
         return (
-
-            <div className={styles.BondingModule}>
-                <ul className={styles.Tabs}>
-                    <li className={cn({ active: activeTab === 'timeline' })}>
-                        <button onClick={this.toggleTab.bind(this, "timeline")}>Timeline</button>
+            <>
+                <ul className={styles.tabs}>
+                    <li>
+                        <button
+                            className={isActive('timeline') ? styles.tab__active : styles.tab}
+                            onClick={this.toggleTab.bind(this, 'timeline')}>
+                            Timeline
+                        </button>
                     </li>
-                    <li className={cn({ active: activeTab === 'bonding-curve' })}>
-                        <button onClick={this.toggleTab.bind(this, "bonding-curve")}>Bonding Curve</button>
+                    <li>
+                        <button
+                            className={isActive('bonding-curve') ? styles.tab__active : styles.tab}
+                            onClick={this.toggleTab.bind(this, 'bonding-curve')}>
+                            Bonding Curve
+                        </button>
                     </li>
                 </ul>
 
@@ -182,8 +196,7 @@ export default class BondingCurve extends React.Component {
                         )
                     }
                 </ErrorBoundary>
-
-            </div>
-        );
+            </>
+        )
     }
 }

@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "./error.module.scss";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
+import styles from './error.module.scss'
 
 const ErrorComponent = ({ message, height }) => (
     <div className={styles.error_component} style={{ minHeight: height || 200 }}>
-        <div className={styles.error_component__message}>{message || "An error has occured"}</div>
+        <div className={styles.error_component__message}>{message || 'An error has occured'}</div>
     </div>
 )
 
@@ -13,4 +13,4 @@ ErrorComponent.propTypes = {
     height: PropTypes.number
 }
 
-export default ErrorComponent;
+export default ErrorComponent

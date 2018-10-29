@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./footer.module.scss";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
+import styles from './footer.module.scss'
 
 const Footer = ({ detail, children, symbol }) => (
     <div className={styles.bondingcurve_module_footer}>
@@ -27,7 +27,7 @@ const Footer = ({ detail, children, symbol }) => (
 
         <div>
             {
-                children ? children : null
+                children || null
             }
         </div>
     </div>
@@ -36,10 +36,10 @@ const Footer = ({ detail, children, symbol }) => (
 Footer.propTypes = {
     detail: PropTypes.shape({
         title: PropTypes.string,
-        sub: PropTypes.string,
+        sub: PropTypes.string
     }),
     children: PropTypes.any,
     symbol: PropTypes.string
 }
 
-export default Footer;
+export default Footer

@@ -1,18 +1,17 @@
-import cn from "classnames";
-import moment from "moment";
-import PropTypes from 'prop-types';
-import React from "react";
-import Footer from '../../Footer';
-import ReactVisTimeline from './ReactVisTimeline';
-import styles from "./timeline.module.scss";
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import cn from 'classnames'
+import moment from 'moment'
+import Footer from '../../Footer'
+import ReactVisTimeline from './ReactVisTimeline'
+import styles from './timeline.module.scss'
 
-export default class Timeline extends React.PureComponent {
-
+export default class Timeline extends PureComponent {
     static propTypes = {
         bondingCurveContract: PropTypes.object.isRequired,
         web3: PropTypes.object.isRequired,
         height: PropTypes.number.isRequired,
-        contractAddress: PropTypes.string.isRequired,
+        contractAddress: PropTypes.string.isRequired
     }
 
     state = {
@@ -24,35 +23,34 @@ export default class Timeline extends React.PureComponent {
         error: null
     }
 
-    filters = ["1D", "5D", "1M", "1Y", "MAX"]
+    filters = ['1D', '5D', '1M', '1Y', 'MAX']
 
     async componentDidMount() {
         try {
-            await this.getData(this.props);
+            await this.getData(this.props)
         } catch (error) {
             this.setState({ error })
         }
     }
 
-    async componentWillReceiveProps(nextProps) {
+    async componentDidUpdate(prevProps) {
         try {
-            if (nextProps.contractAddress !== this.props.contractAddress) {
+            if (prevProps.contractAddress !== this.props.contractAddress) {
                 this.setState({
                     data: []
                 }, () => {
-                    this.getData(nextProps)
+                    this.getData(this.props)
                 })
-            };
+            }
         } catch (error) {
             this.setState({ error })
         }
     }
 
     getData = async (props) => {
-        const { bondingCurveContract } = props;
+        const { bondingCurveContract } = props
 
         try {
-
             const scale = await bondingCurveContract.methods.scale().call()
 
             bondingCurveContract.events.allEvents({
@@ -60,18 +58,15 @@ export default class Timeline extends React.PureComponent {
                 toBlock: 'latest'
             })
                 .on('data', async (event) => {
-
                     try {
-                        if (["TokenBuyDrops", "TokenSellDrops"].indexOf(event.event) !== -1) {
+                        if (['TokenBuyDrops', 'TokenSellDrops'].indexOf(event.event) !== -1) {
                             await this.handleEvent(event, scale)
                         }
                     } catch (err) {
-                        throw err;
+                        throw err
                     }
-
                 })
-                .on('error', console.error);
-
+                .on('error', console.error)
         } catch (error) {
             this.setState({ error })
         }
@@ -79,18 +74,17 @@ export default class Timeline extends React.PureComponent {
 
     handleEvent = async (event, scale) => {
         try {
+            const { web3 } = this.props
 
-            const { web3 } = this.props;
-
-            const price = event.returnValues._price / scale;
+            const price = event.returnValues._price / scale
             const block = await web3.eth.getBlock(event.blockNumber)
 
-            const date = moment(block.timestamp * 1000).valueOf();
+            const date = moment(block.timestamp * 1000).valueOf()
 
-            let newMaxValue = this.state.maxValue;
+            let newMaxValue = this.state.maxValue
 
             if (price > this.state.maxValue) {
-                newMaxValue = price;
+                newMaxValue = price
             }
 
             this.setState((prevState) => ({
@@ -103,16 +97,15 @@ export default class Timeline extends React.PureComponent {
                 ],
                 maxValue: newMaxValue
             }))
-
         } catch (err) {
-            throw err;
+            throw err
         }
     }
 
     setFilter = (filter) => {
-        let minDomain = 0;
+        let minDomain = 0
 
-        if (filter !== "MAX") {
+        if (filter !== 'MAX') {
             const duration = moment.duration(`P${filter}`)
             minDomain = moment().subtract(duration).valueOf()
         }
@@ -121,7 +114,6 @@ export default class Timeline extends React.PureComponent {
             activeFilter: filter,
             minDomain
         })
-
     }
 
     setDetail = (selectedItem) => {
@@ -129,10 +121,10 @@ export default class Timeline extends React.PureComponent {
     }
 
     render() {
-        const { activeFilter, selectedItem, minDomain, maxValue, data } = this.state;
-        const { height } = this.props;
+        const { activeFilter, selectedItem, minDomain, maxValue, data } = this.state
+        const { height } = this.props
 
-        if (this.state.error) throw this.state.error;
+        if (this.state.error) throw this.state.error
 
         const detail = selectedItem || data.slice(-1)[0]
 
@@ -152,7 +144,7 @@ export default class Timeline extends React.PureComponent {
                     symbol="OCN"
                     detail={detail ? {
                         title: `${detail.y.toFixed(4)}`,
-                        sub: moment(detail.x).format("lll")
+                        sub: moment(detail.x).format('lll')
                     } : null}
                 >
                     <ul className={styles.timeline_filter}>

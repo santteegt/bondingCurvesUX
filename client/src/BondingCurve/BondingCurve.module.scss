@@ -1,55 +1,41 @@
 @import "../assets/stylesheets/variables";
 
-
-.BondingModule{
-    background:white;
-    border-radius: 0.2rem;
+.bondingModule {
+  background: $brand-white;
+  border-radius: 0.2rem;
 }
 
-.Tabs{
-    padding-left: 0;
-    list-style-type: none;
-    display: flex;
-    margin:0;
-    padding: .7rem .7rem 0 .7rem;
+.tabs {
+  padding-left: 0;
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: .7rem .7rem 0 .7rem;
+}
 
-    :global{
+.tab {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  color: $brand-grey-light;
+  text-transform: uppercase;
+  font-family: $font-family-button;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.1rem;
+  border: none;
+  background: transparent;
+  margin-right: .1rem;
+  font-size: $font-size-small;
+  &:focus {
+    outline: none;
+  }
+}
 
-        li{
-            &.active button{
-                    background: $brand-gradient;
-                    color:$brand-white;
-                    opacity: 1;
-                    box-shadow: 5px 5px 15px rgba($brand-black, .22)
-            }
-        }
-
-        button {
-            padding: 0;
-            border: none;
-            font: inherit;
-            color: inherit;
-            background-color: transparent;
-            cursor: pointer;
-
-            color: $brand-grey-light;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            font-family: $font-family-button;
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 0.1rem;
-            border:none;
-            opacity: .6;
-            background: transparent;
-            margin-right: .1rem;
-            font-size: 0.85rem;
-            
-            &:focus {
-                outline:none;
-            }
-
-            
-        }
-    }
+.tab__active {
+  composes: tab;
+  color: $brand-black;
 }
