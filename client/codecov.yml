@@ -1,0 +1,5 @@
+# Since these aren't part of the actual module, skip test coverage for them
+ignore:
+  - "src/App"
+  - "src/index.js"
+  - "src/serviceWorker.js" 
