@@ -128,6 +128,8 @@ export default class Timeline extends PureComponent {
 
         const detail = selectedItem || data.slice(-1)[0]
 
+        localStorage.setItem('timeline_data', JSON.stringify(data))
+
         return (
             <div>
                 <div style={{ minHeight: height }}>

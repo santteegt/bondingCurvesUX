@@ -6,7 +6,7 @@ import BondingCurve from '../BondingCurve/BondingCurve'
 import contractArtifact from './BondingCurve.json'
 
 class App extends PureComponent {
-  state = { contractAddress: '0x96eaf28b6e59defc8f736faa1681d41382d3aa32' };
+  state = { contractAddress: '0x62Df148cA261814F673033E71c0d9F2a66ab4B8e' };
 
   handleChange = (event) => {
       this.setState({ contractAddress: event.target.value })

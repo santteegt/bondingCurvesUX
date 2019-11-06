@@ -52,6 +52,20 @@ export default class BondingCurveChart extends PureComponent {
                 price: poolBalance.div(totalSupply.times(reserveRatio)).toNumber()
             }
 
+            localStorage.setItem('bonding_params',
+            JSON.stringify({
+                dropsSupply: dropsSupply.toNumber(),
+                reserveRatio: reserveRatio.toNumber(),
+                poolBalance: poolBalance.toNumber(),
+                scale: scale.toNumber(),
+                totalSupply: totalSupply.toNumber(),
+                ghostSupply: ghostSupply.toNumber(),
+                nOcean: nOcean.toNumber(),
+                ndrops: ndrops.toNumber(),
+                price: poolBalance.div(totalSupply.times(reserveRatio)).toNumber()
+
+            }))
+
             const { data, currentPrice } = this.getChartData(params)
 
             this.setState({
