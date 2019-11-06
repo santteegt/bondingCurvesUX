@@ -24,7 +24,7 @@ ganache-cli # on a separate terminal window
 truffle migrate
 ```
 
-Finally, if you want to show a default bonding curve in the UI, copy the corresponding address of the deployed BondingCurve smart contract from within the `truffle migrate` logs, and paste it on the `contractAddress` state variable from `client/src/App.js`
+If you want to show a default bonding curve in the UI, copy the corresponding address of the deployed BondingCurve smart contract from within the `truffle migrate` logs, and paste it on the `contractAddress` state variable from `client/src/App.js`
 
 - To run the frontend:
 
@@ -52,8 +52,6 @@ Contract: BondingCurve
     Test User stories
 BondingCurve contract address 0x8E2111ED22B419bE6Fc15De8A377ED2C486D4F7
 ...
-```
-
 ```
 
 - Finally, in a browser open the [http://localhost:3000](http://localhost:3000) and paste the address of the simulated BondingCurve smart contract in the corresponding field within the UI
