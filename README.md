@@ -5,7 +5,7 @@ Frontend application for Bonding Curves UX
 
 ## Development
 
-As a pre-requisite, you need:
+As a pre-requisite, you need the following system requirements:
 
 - Node.js >=10
 - npm
@@ -44,7 +44,7 @@ cd contract
 truffle test
 ```
 
-You should see in the logs (see example above) the address of the BondingCurve contract used to generate simulation data. You need to copy that address in order to see the results within the UI
+- You should see in the logs (see example above) the address of the BondingCurve contract used to generate simulation data. You need to copy that address in order to see the results within the UI
 
 ```
 ...
