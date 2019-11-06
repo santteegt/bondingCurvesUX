@@ -7,7 +7,7 @@ Frontend application for Bonding Curves UX
 
 As a pre-requisite, you need:
 
-- Node.js >=8
+- Node.js >=10
 - npm
 - truffle 5.x
 - ganache-cli
@@ -17,7 +17,7 @@ As a pre-requisite, you need:
 
 - To deploy the smart contracts:
 
-```bash 
+```bash
 cd contract
 npm install
 ganache-cli # on a separate terminal window
@@ -41,7 +41,7 @@ npm start
 
 ```bash
 cd contract
-truffle test 
+truffle test
 ```
 
 You should see in the logs (see example above) the address of the BondingCurve contract used to generate simulation data. You need to copy that address in order to see the results within the UI

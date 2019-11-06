@@ -24,24 +24,19 @@
 
 ## Development
 
-As a pre-requisite, you need:
-
-- Node.js >=8
-- npm
-- truffle 5.x
-- ganache-cli
+- First, install project dependencies:
 
 ```bash
 npm install 
 ```
 
-On a separate terminal window, start an instance of ganache:
+- On a separate terminal window, start an instance of ganache:
 
 ```
 ganache-cli
 ```
 
-To migrate/deploy the contracts on the local development network:
+- To migrate/deploy the contracts on the local development network:
 
 ```
 truffle migrate
@@ -49,7 +44,7 @@ truffle migrate
 
 ### Contract testing
 
-The token contract can be tested with `test/TestToken.js` file:
+- The token contract can be tested with `test/TestToken.js` file:
 
 ```bash
 npm test
